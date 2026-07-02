@@ -109,6 +109,10 @@ Evaluation metrics:
 - F1-score
 
 ✔ **Best Model: SVM**
+**why SVM?**
+SVM outperformed Logistic Regression,
+Random Forest and XGBoost on this dataset,
+achieving the highest cross-validation score while maintaining strong generalization.
 
 ---
 
@@ -136,6 +140,16 @@ Final model performance:
 | Recall     | 0.98  |
 | F1-score   | 0.98  |
 
+The optimized SVM achieved the best balance between precision and recall compared with all baseline models.
+
+### Confusion Matrix
+<img width="498" height="433" alt="Confuion_Matrix" src="https://github.com/user-attachments/assets/ed71f219-50f1-479a-873a-a6365f2346cb" />
+
+
+### ROC Curve
+<img width="1001" height="701" alt="ROC_Curve" src="https://github.com/user-attachments/assets/e793f47c-5571-4081-8bf8-28186b1b3258" />
+
+
 ---
 
 ## 🧠 Model Explainability
@@ -145,6 +159,10 @@ SHAP was used to interpret model predictions.
 Key insights:
 - Most important features: tumor radius, texture, and perimeter
 - Model decisions are clinically interpretable
+
+### SHAP Summary Plot
+<img width="762" height="940" alt="SHAP_Summary" src="https://github.com/user-attachments/assets/0e1ac821-4510-403d-877f-810e2830bcf2" />
+
 
 ---
 
@@ -194,6 +212,18 @@ This allows direct inference without retraining.
 pip install -r requirements.txt
 
 python scripts/run_training.py
+```
+---
+
+
+## 🎯 Future Work
+
+
+- Deploy using FastAPI
+- Dockerize the project
+- Compare with LightGBM
+- Perform feature selection
 
 ---
+
 
