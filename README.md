@@ -9,6 +9,14 @@
 ## 📌 Project Overview
 
 This project is an **end-to-end Machine Learning pipeline** for breast cancer diagnosis.
+---
+## 📌 Key Takeaways
+
+- End-to-end ML pipeline implemented
+- Strong model performance achieved using SVM + Optuna
+- Full experiment tracking with MLflow
+- Model interpretability using SHAP
+
 
 ---
 
@@ -133,12 +141,26 @@ Final model performance:
 
 ## 🧠 Model Explainability
 
-Model interpretability was performed using **SHAP (SHapley Additive exPlanations)**.
+SHAP was used to interpret model predictions.
 
 Key insights:
-- Most influential features were related to cell texture and radius
-- SHAP confirmed model decisions are clinically meaningful
+- Most important features: tumor radius, texture, and perimeter
+- Model decisions are clinically interpretable
 
+---
+
+## 📈 MLflow Tracking
+
+All experiments were tracked using MLflow:
+- Hyperparameters
+- Metrics
+- Model artifacts
+
+To launch UI:
+
+```bash
+mlflow ui
+```
 ---
 
 ## 💾 Model Saving
@@ -159,14 +181,20 @@ This allows direct inference without retraining.
 - XGBoost
 - Optuna
 - SHAP
+- MLflow
 - Matplotlib
 - Seaborn
 
----
 
+
+
+---
 ## 🚀 How to Run
 
 ```bash
 pip install -r requirements.txt
 
 python scripts/run_training.py
+
+---
+
