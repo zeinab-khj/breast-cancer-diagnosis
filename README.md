@@ -67,11 +67,10 @@ breast-cancer-project/
 │   ├── preprocess.py
 │   ├── train.py
 │   ├── tune.py
-│   ├── evaluate.py
-│   └── save_model.py
+│   └── evaluate.py
 │
 ├── models/                 # Trained models
-│   └── svm_optuna.pkl
+│   └── save_model.py
 │
 ├── scripts/               # Entry point
 │   └── run_training.py
