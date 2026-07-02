@@ -8,15 +8,11 @@
 
 ## 📌 Project Overview
 
-This project is an **end-to-end Machine Learning pipeline** for breast cancer diagnosis using the Wisconsin Breast Cancer dataset.
-
-The goal is to classify tumors as **malignant or benign** using multiple ML models, followed by hyperparameter optimization and model explainability.
+This project is an **end-to-end Machine Learning pipeline** for breast cancer diagnosis.
 
 ---
 
 ## 🎯 Problem Statement
-
-Early and accurate diagnosis of breast cancer is critical for effective treatment.
 
 This project aims to:
 - Build a robust classification model
@@ -27,3 +23,23 @@ This project aims to:
 ---
 
 ## 🔄 Workflow
+
+↓
+Data Cleaning
+↓
+Feature Engineering
+↓
+Model Benchmarking
+(Logistic Regression, SVM, Random Forest, XGBoost)
+↓
+Best Model Selection (SVM)
+↓
+Hyperparameter Optimization (Optuna)
+↓
+Final Training Pipeline
+↓
+Evaluation
+↓
+Explainability (SHAP)
+↓
+Model Saving
