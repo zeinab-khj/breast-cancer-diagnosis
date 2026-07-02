@@ -1,6 +1,9 @@
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+import mlflow
+
+mlflow.set_experiment("breast-cancer-svm")
 
 
 def build_model(C=1.0, kernel="rbf", gamma="scale"):
