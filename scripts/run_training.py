@@ -1,70 +1,79 @@
-from sklearn.datasets import load_breast_cancer
 import pandas as pd
+import mlflow
+
+from sklearn.datasets import load_breast_cancer
+from sklearn.metrics import f1_score
 
 from src.preprocess import split_data
 from src.tune import tune_svm
-from src.train import build_model, train_model
+from src.train import build_model, train_model, predict
 from src.evaluate import evaluate_model
 from src.save_model import save_model
 
 
 def main():
 
-    # Load data
-    data = load_breast_cancer()
+    # -----------------------
+    # MLflow setup
+    # -----------------------
+    mlflow.set_experiment("breast-cancer-svm")
 
-    X = pd.DataFrame(
-        data.data,
-        columns=data.feature_names
-    )
+    with mlflow.start_run():
 
-    y = data.target
+        # -----------------------
+        # Load data
+        # -----------------------
+        data = load_breast_cancer()
 
-    # Split
-    X_train, X_test, y_train, y_test = split_data(
-        X,
-        y
-    )
+        X = pd.DataFrame(data.data, columns=data.feature_names)
+        y = data.target
 
-    # Hyperparameter tuning
-    tuning_results = tune_svm(
-        X_train,
-        y_train
-    )
+        # -----------------------
+        # Split
+        # -----------------------
+        X_train, X_test, y_train, y_test = split_data(X, y)
 
-    best_params = tuning_results["best_params"]
+        # -----------------------
+        # Hyperparameter tuning
+        # -----------------------
+        tuning_results = tune_svm(X_train, y_train)
 
-    # Build & train
-    model = build_model(**best_params)
+        best_params = tuning_results["best_params"]
+        best_score = tuning_results["best_score"]
 
-    model = train_model(
-        model,
-        X_train,
-        y_train
-    )
+        mlflow.log_params(best_params)
+        mlflow.log_metric("cv_f1", best_score)
 
-    # Evaluation
-    results = evaluate_model(
-        model,
-        X_test,
-        y_test
-    )
+        # -----------------------
+        # Train final model
+        # -----------------------
+        model = build_model(**best_params)
+        model = train_model(model, X_train, y_train)
 
-    print("\nEvaluation Results")
-    print("-" * 30)
+        # -----------------------
+        # Predict
+        # -----------------------
+        preds = predict(model, X_test)
 
-    print(f"Accuracy : {results['accuracy']:.4f}")
-    print(f"Precision: {results['precision']:.4f}")
-    print(f"Recall   : {results['recall']:.4f}")
-    print(f"F1 Score : {results['f1']:.4f}")
+        # -----------------------
+        # Evaluation
+        # -----------------------
+        results = evaluate_model(model, X_test, y_test)
 
-    # Save model
-    save_model(
-        model,
-        model_name="svm_optuna.pkl"
-    )
+        mlflow.log_metric("accuracy", results["accuracy"])
+        mlflow.log_metric("precision", results["precision"])
+        mlflow.log_metric("recall", results["recall"])
+        mlflow.log_metric("f1", results["f1"])
 
-    print("\nModel saved successfully.")
+        # -----------------------
+        # Save model
+        # -----------------------
+        save_model(model, "svm_optuna.pkl")
+
+        mlflow.sklearn.log_model(model, "model")
+
+        print("\nFinal Results:")
+        print(results)
 
 
 if __name__ == "__main__":
