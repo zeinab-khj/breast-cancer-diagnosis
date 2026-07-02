@@ -1,5 +1,5 @@
 import optuna
-
+import mlflow
 from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -40,6 +40,14 @@ def tune_svm(X_train, y_train, n_trials=50):
             scoring="f1",
             n_jobs=-1
         ).mean()
+
+
+        with mlflow.start_run(nested=True):
+        mlflow.log_param("C", C)
+        mlflow.log_param("kernel", kernel)
+        mlflow.log_param("gamma", gamma)
+        mlflow.log_metric("f1", score)
+
 
         return score
 
