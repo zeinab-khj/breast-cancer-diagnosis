@@ -36,15 +36,15 @@ Baseline Models Training
       ↓
 Best Model Selection (SVM)
       ↓
-Hyperparameter Tuning (Optuna)
+Hyperparameter Tuning (Optuna)  + MLflow tracking
       ↓
-Final Model Training (SVM + best params)
+Final Model Training (SVM + best params) + MLflow log model
       ↓
 Evaluation (Accuracy, Precision, Recall, F1)
       ↓
 Model Explainability (SHAP)
       ↓
-Model Saving (joblib)
+Model Saving (joblib) + MLflow artifact
 ```
 ## 📂 Project Structure
 
